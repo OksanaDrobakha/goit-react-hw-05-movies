@@ -1,6 +1,8 @@
 import Form from 'components/Form/Form';
+import Loader from 'components/Loader/Loader';
+import MoviesList from 'components/MoviesList/MoviesList';
 import { useEffect, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { fetchMoviesByName } from 'services/api';
 
 const Movies = () => {
@@ -32,14 +34,8 @@ const Movies = () => {
         <div>
           <h1>Search Movies</h1>
           <Form />
-          {isLoading && <div>Loading</div>}
-          <ul>
-            {movies.map(movie => (
-              <li key={movie.id}>
-                <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
-              </li>
-            ))}
-          </ul>
+          {isLoading && <Loader />}
+          <MoviesList movies={movies} />
         </div>
       </section>
     </>

@@ -1,5 +1,7 @@
+import Loader from 'components/Loader/Loader';
+import MoviesList from 'components/MoviesList/MoviesList';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+
 import { fetchTrending } from 'services/api';
 
 const Home = () => {
@@ -27,14 +29,8 @@ const Home = () => {
       <section>
         <div>
           <h1>Trending Movies</h1>
-          {isLoading && <div>Loading</div>}
-          <ul>
-            {movies.map(movie => (
-              <li key={movie.id}>
-                <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
-              </li>
-            ))}
-          </ul>
+          {isLoading && <Loader />}
+          <MoviesList movies={movies} />
         </div>
       </section>
     </>
