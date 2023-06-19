@@ -2,6 +2,15 @@ import Loader from 'components/Loader/Loader';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchActors } from 'services/api';
+import {
+  CastHeader,
+  CastInfo,
+  CastList,
+  CastListItem,
+  CastName,
+  NoCastText,
+  Wrapper,
+} from './Cast.styled';
 
 const Cast = () => {
   const { movieId } = useParams();
@@ -26,17 +35,26 @@ const Cast = () => {
     fetch();
   }, [movieId]);
   return (
-    <>
+    <Wrapper>
+      <CastHeader>Cast</CastHeader>
       {isLoading && <Loader />}
-      <ul>
-        {actors.map(({ id, name, poster }) => (
-          <li key={id}>
-            <p>{name}</p>
-            <img src={poster} alt={name} />
-          </li>
-        ))}
-      </ul>
-    </>
+      {actors.length ? (
+        <CastList>
+          {actors.map(({ id, name, poster }) => (
+            <CastListItem key={id}>
+              <CastInfo>
+                <CastName>{name}</CastName>
+                <img src={poster} alt={name} />
+              </CastInfo>
+            </CastListItem>
+          ))}
+        </CastList>
+      ) : (
+        <NoCastText>
+          We don't have any information about the cast yet.
+        </NoCastText>
+      )}
+    </Wrapper>
   );
 };
 

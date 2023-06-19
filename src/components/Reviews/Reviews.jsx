@@ -2,6 +2,15 @@ import Loader from 'components/Loader/Loader';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchReviews } from 'services/api';
+import {
+  Author,
+  NoReviewsText,
+  Review,
+  ReviewHeader,
+  ReviewList,
+  ReviewListItem,
+  Wrapper,
+} from './Reviews.styled';
 
 const Reviews = () => {
   const { movieId } = useParams();
@@ -26,17 +35,24 @@ const Reviews = () => {
     fetch();
   }, [movieId]);
   return (
-    <>
+    <Wrapper>
+      <ReviewHeader>Reviews</ReviewHeader>
       {isLoading && <Loader />}
-      <ul>
-        {reviews.map(({ id, name, content }) => (
-          <li key={id}>
-            <p>{name}</p>
-            <p>{content}</p>
-          </li>
-        ))}
-      </ul>
-    </>
+      {reviews.length ? (
+        <ReviewList>
+          {reviews.map(({ id, name, content }) => (
+            <ReviewListItem key={id}>
+              <Author>{name}</Author>
+              <Review>{content}</Review>
+            </ReviewListItem>
+          ))}
+        </ReviewList>
+      ) : (
+        <NoReviewsText>
+          We don't have any reviews for this movie yet.
+        </NoReviewsText>
+      )}
+    </Wrapper>
   );
 };
 

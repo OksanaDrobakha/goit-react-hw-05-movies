@@ -9,6 +9,8 @@ import {
   useParams,
 } from 'react-router-dom';
 import { fetchMovieDetails, getPoster } from 'services/api';
+import { Container, Button } from './MovieDetails.styled';
+// import { Button } from 'components/Form/Form.styled';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -45,12 +47,14 @@ const MovieDetails = () => {
   }, [movieId]);
 
   return (
-    <>
+    <main>
       <section>
-        <div>
+        <Container>
           <h1>Movie Details</h1>
           {isLoading && <Loader />}
-          <Link to={backLinkHref.current}>GO BACK</Link>
+          <Button type="button">
+            <Link to={backLinkHref.current}>GO BACK</Link>
+          </Button>
           {movieDetails && <MovieInfo movieDetails={movieDetails} />}
           <nav>
             <NavLink to="cast">Cast</NavLink>
@@ -59,9 +63,9 @@ const MovieDetails = () => {
           <Suspense fallback={null}>
             <Outlet />
           </Suspense>
-        </div>
+        </Container>
       </section>
-    </>
+    </main>
   );
 };
 

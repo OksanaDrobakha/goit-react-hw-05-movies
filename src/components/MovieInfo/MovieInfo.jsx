@@ -1,19 +1,30 @@
+import {
+  Img,
+  MovieCardContainer,
+  MovieInfoCard,
+  MovieInfoText,
+  MovieInfoTextBold,
+  MovieName,
+} from './MovieInfo.styled';
+
 const MovieInfo = ({ movieDetails }) => {
   const { poster, year, genresList, vote, title, overview } = movieDetails;
   return (
-    <div style={{ display: 'flex', gap: 20 }}>
-      <img src={poster} alt={title} />
-      <div>
-        <h2>
+    <MovieCardContainer style={{ display: 'flex', gap: 20 }}>
+      <Img src={poster} alt={title} />
+      <MovieInfoCard>
+        <MovieName>
           {title} ({year})
-        </h2>
-        <p>User Score: {vote}%</p>
-        <p>Overview</p>
+        </MovieName>
+        <MovieInfoText>User Score: {vote}%</MovieInfoText>
+        <MovieInfoTextBold>Overview</MovieInfoTextBold>
         <p>{overview}</p>
-        <p>Genres:</p>
-        <p>{genresList}</p>
-      </div>
-    </div>
+        <MovieInfoText>
+          <MovieInfoTextBold>Genres:</MovieInfoTextBold>
+          <p>{genresList}</p>
+        </MovieInfoText>
+      </MovieInfoCard>
+    </MovieCardContainer>
   );
 };
 
